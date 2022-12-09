@@ -1,5 +1,8 @@
-public interface IWordDictionary
+namespace Dawg
 {
-    bool CheckWord(string word);
-    string GetRandomWord();
+    public interface IWordDictionary
+    {
+        bool CheckWord(string word);
+        string GetRandomWord();
+    }
 }

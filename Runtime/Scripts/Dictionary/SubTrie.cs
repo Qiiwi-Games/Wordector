@@ -1,20 +1,23 @@
 using System.Collections.Generic;
 
-public partial class DAWGGenerator
+namespace Dawg
 {
-    public class SubTrie
+    public partial class DAWGGenerator
     {
-        public TrieNode Node;
-        public int Length;
-        public List<TrieNode> ParentNodes;
-        
-        
-        public SubTrie(TrieNode node, TrieNode parentNode, int length)
+        public class SubTrie
         {
-            Node = node;
-            Length = length;
-            ParentNodes = new List<TrieNode>();
-            ParentNodes.Add(parentNode);
+            public TrieNode Node;
+            public int Length;
+            public List<TrieNode> ParentNodes;
+
+
+            public SubTrie(TrieNode node, TrieNode parentNode, int length)
+            {
+                Node = node;
+                Length = length;
+                ParentNodes = new List<TrieNode>();
+                ParentNodes.Add(parentNode);
+            }
         }
     }
 }
