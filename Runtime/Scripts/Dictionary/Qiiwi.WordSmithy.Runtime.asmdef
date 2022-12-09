@@ -1,0 +1,18 @@
+{
+    "name": "DictionaryAssembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:60bfecf5cb232594891bc622f40d6bed",
+        "GUID:f00e97cf3c4244741a32a3f3bc69140d",
+        "GUID:7bb1ee73ebb9f114188944f67b1333d6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
