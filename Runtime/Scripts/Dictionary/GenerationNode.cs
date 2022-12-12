@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Dawg
+namespace Wordector
 {
     public class TrieNode
     {

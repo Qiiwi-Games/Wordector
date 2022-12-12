@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Dawg
+namespace Wordector
 {
     public partial class DAWGGenerator
     {

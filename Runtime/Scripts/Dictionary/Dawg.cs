@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Dawg
+namespace Wordector
 {
     public class Dawg : IWordDictionary
     {
@@ -50,8 +50,6 @@ namespace Dawg
 
             return result;
         }
-
-
     
         public int GetPossibleWordsCount()
         {
@@ -94,7 +92,7 @@ namespace Dawg
             }
         }
 
-        public List<byte[]> GetPossibleWordsWildcardMap(string wildcardMap)
+        public List<byte[]> GetPossibleWordsWildcardMap(string wildcardMap, int minimumLength)
         {
             bool[] wildcard = new bool[wildcardMap.Length];
             byte[] selection = new byte[wildcardMap.Length];
@@ -104,11 +102,44 @@ namespace Dawg
             for (int i = 0; i < wildcardMap.Length; i++)
             {
                 wildcard[i] = wildcardMap[i] == ' ';
-                selection[i] = _letterMap[wildcardMap[i]];
+                selection[i] = (byte)(_letterMap.ContainsKey(wildcardMap[i]) ? _letterMap[wildcardMap[i]] : 0);
             }
 
-            //GetPossibleWordsWildcardMap(selection, tempLetters, result, -1, _startingAddress);
+            GetPossibleWildCardWordsRecursive(selection, tempLetters, wildcard, result, -1, _startingAddress, minimumLength);
             return result;
+        }
+
+        private void GetPossibleWildCardWordsRecursive(byte[] selection, byte[] tempLetters, bool[] wildcardMap, List<byte[]> solutions, int depth, int address, int minimumLength)
+        {
+            if (depth >= 0)
+            {
+                if (depth >= selection.Length) return;
+
+                var letter = (byte)(_data[address] & LetterBits);
+                tempLetters[depth] = letter;
+
+                if (!wildcardMap[depth] && selection[depth] != letter) return;
+
+                if (depth + 1 >= minimumLength && (_data[address] & EndOfWord) != 0)
+                {
+                    var newWord = new byte[depth + 1];
+                    Array.Copy(tempLetters, newWord, depth + 1);
+                    solutions.Add(newWord);
+                }
+            }
+
+            bool hasNaturalContinuation = (_data[address] & NaturalContinuationBit) != 0;
+
+            if ((_data[address++] & AddressedChildrenBit) != 0)
+            {
+                do
+                {
+                    int newAddress = _data[address++] + (_data[address++] << 8) + ((_data[address] & 0b01111111) << 16);
+                    GetPossibleWildCardWordsRecursive(selection, tempLetters, wildcardMap, solutions, depth + 1, newAddress, minimumLength);
+                } while ((_data[address++] & AddressedChildrenBit) == 0);
+            }
+
+            if (hasNaturalContinuation) GetPossibleWildCardWordsRecursive(selection, tempLetters, wildcardMap, solutions, depth + 1, address, minimumLength);
         }
 
         public int GetPossibleWordsCountWithElimination(string letters, int wordLength = 0)

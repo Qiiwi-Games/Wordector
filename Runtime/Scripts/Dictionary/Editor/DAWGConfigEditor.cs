@@ -2,7 +2,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace Dawg
+namespace Wordector
 {
     [CustomEditor(typeof(DAWGConfig))]
     public class DAWGConfigEditor : Editor

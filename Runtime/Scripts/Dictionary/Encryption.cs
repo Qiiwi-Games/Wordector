@@ -3,7 +3,7 @@ using System.IO;
 using System;
 using System.IO.Compression;
 
-namespace Dawg
+namespace Wordector
 {
 	public class Encryption
 	{

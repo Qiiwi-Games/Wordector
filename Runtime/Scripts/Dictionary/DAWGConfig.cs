@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Dawg
+namespace Wordector
 {
     [CreateAssetMenu(menuName = "Create DAWGConfig", fileName = "DAWGConfig", order = 0)]
     public class DAWGConfig : ScriptableObject

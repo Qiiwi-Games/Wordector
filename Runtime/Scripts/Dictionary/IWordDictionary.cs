@@ -1,4 +1,4 @@
-namespace Dawg
+namespace Wordector
 {
     public interface IWordDictionary
     {

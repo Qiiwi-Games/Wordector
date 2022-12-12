@@ -6,7 +6,7 @@ using UnityEngine;
 using System.Text.RegularExpressions;
 using Random = UnityEngine.Random;
 
-namespace Dawg
+namespace Wordector
 {
     public class WordDictionary : IWordDictionary
     {
