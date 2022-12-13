@@ -1,5 +1,5 @@
 {
-    "name": "Tests",
+    "name": "Qiiwi.WordSmithy.Tests.Runtime",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
