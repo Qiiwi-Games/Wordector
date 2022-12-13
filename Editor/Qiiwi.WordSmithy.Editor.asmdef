@@ -2,7 +2,7 @@
     "name": "Dictionary",
     "rootNamespace": "",
     "references": [
-        "GUID:fda96e23d9e7840eb8c5a8b386741076"
+        "DictionaryAssembly"
     ],
     "includePlatforms": [
         "Editor"
