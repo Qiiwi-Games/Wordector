@@ -40,4 +40,5 @@ MonoBehaviour:
   - x
   - y
   - z
-  _dawgAsset: {fileID: 4900000, guid: 823ee36b04ef349b9b3feddaaf89b148, type: 3}
+  _dawgAsset: {fileID: 4900000, guid: a79767ef88fae4e018249bb7bb76c6d6, type: 3}
+  _generateBackwardWords: 0
