@@ -142,7 +142,7 @@ namespace Wordector
             if (hasNaturalContinuation) GetPossibleWildCardWordsRecursive(selection, tempLetters, wildcardMap, solutions, depth + 1, address, minimumLength);
         }
 
-        public int GetPossibleWordsCountWithElimination(string letters, int wordLength = 0)
+        public int GetPossibleWordsCountWithElimination(string letters, int minimumLenth = 0)
         {
             byte[] selection = new byte[letters.Length];
 
@@ -151,7 +151,7 @@ namespace Wordector
                 selection[i] = _letterMap[letters[i]];
             }
 
-            return GetPossibleWordsWithElimination(selection, 0, -1, _startingAddress);
+            return GetPossibleWordsWithElimination(selection, 0, -1, _startingAddress, minimumLenth);
         }
 
         private void GetPossibleWordsRecursive(byte[] selection, byte[] tempLetters, List<byte[]> solutions, int depth, int address)
@@ -275,7 +275,7 @@ namespace Wordector
             return solutions;
         }
     
-        private int GetPossibleWordsWithElimination(byte[] selection, uint elimination, int depth, int address)
+        private int GetPossibleWordsWithElimination(byte[] selection, uint elimination, int depth, int address, int minimumLength = 0)
         {
             int solutions = 0;
             uint elimMask = 1;
@@ -291,7 +291,7 @@ namespace Wordector
                         break;
                     }
                 if (!contains) return 0;
-                if ((_data[address] & EndOfWord) != 0) solutions++;
+                if (depth >= minimumLength - 1 && (_data[address] & EndOfWord) != 0) solutions++;
             }
 
             bool hasNaturalContinuation = (_data[address] & NaturalContinuationBit) != 0;
@@ -301,10 +301,10 @@ namespace Wordector
                 do
                 {
                     int newAddress = _data[address++] + (_data[address++] << 8) + ((_data[address] & 0b01111111) << 16);
-                    solutions += GetPossibleWordsWithElimination(selection, elimination, depth + 1, newAddress);
+                    solutions += GetPossibleWordsWithElimination(selection, elimination, depth + 1, newAddress, minimumLength);
                 } while ((_data[address++] & AddressedChildrenBit) == 0);
             }
-            if (hasNaturalContinuation) solutions += GetPossibleWordsWithElimination(selection, elimination, depth + 1, address);
+            if (hasNaturalContinuation) solutions += GetPossibleWordsWithElimination(selection, elimination, depth + 1, address, minimumLength);
 
             return solutions;
         }
